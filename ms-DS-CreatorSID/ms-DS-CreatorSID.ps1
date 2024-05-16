@@ -1,0 +1,1 @@
+$x = Get-ADComputer -fi {ms-DS-CreatorSID -like '*'} -Properties ms-DS-CreatorSID | Select-Object Name,@{L='JoinedBy';E={(Get-ADObject -Filter "ObjectSid -eq '$($_.'ms-DS-CreatorSID')'" -IncludeDeletedObjects -Properties SamAccountName).SamAccountName}} | Sort-Object -Property JoinedBy
